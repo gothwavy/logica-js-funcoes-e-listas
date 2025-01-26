@@ -9,7 +9,21 @@ function ShowWelcomeMessage() {
 }
 
 function GenerateRandomNumber() {
-  return parseInt(Math.random() * 10 + 1);
+  let randomNumber = parseInt(Math.random() * maxLimitNumber + 1);
+  console.log(`${randomNumber} random number`)
+
+  if (numberList.includes(randomNumber)) {
+    return GenerateRandomNumber();
+  }
+  else {
+    numberList.push(randomNumber);
+    let numberListLength = numberList.length;
+    if (numberListLength == maxLimitNumber) {
+      numberList = [];
+    }
+    return randomNumber;
+  }
+
 }
 
 function ClearInput() {
@@ -18,17 +32,16 @@ function ClearInput() {
 }
 
 function NewGame() {
-  tries = 0;
-  wordTries = ``;
-  randomNumber = GenerateRandomNumber();
   ShowWelcomeMessage();
+  randomNumber = GenerateRandomNumber();
+  tries = 0;
   document.getElementById(`reiniciar`).setAttribute(`disabled`, true);
 }
 
 function VerifyGuess() {
   let guess = document.querySelector(`input`).value;
   tries++;
-  wordTries = tries > 1 ? `${tries} tries` : `1 try`
+  let wordTries = tries > 1 ? `${tries} tries` : `1 try`
   if (guess == randomNumber) {
     ShowMessage(`h1`, `You Won!`);
     ShowMessage(`p`, `You guessed the random number correctly with ${wordTries}!`);
@@ -43,7 +56,8 @@ function VerifyGuess() {
   ClearInput();
 }
 
-let tries = 0;
-let wordTries = ``;
-let randomNumber = GenerateRandomNumber();
 ShowWelcomeMessage();
+let numberList = [];
+let maxLimitNumber = 3;
+let randomNumber = GenerateRandomNumber();
+let tries = 0;
