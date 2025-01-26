@@ -10,7 +10,6 @@ function ShowWelcomeMessage() {
 
 function GenerateRandomNumber() {
   let randomNumber = parseInt(Math.random() * maxLimitNumber + 1);
-  console.log(`${randomNumber} random number`)
 
   if (numberList.includes(randomNumber)) {
     return GenerateRandomNumber();
